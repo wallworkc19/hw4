@@ -4,18 +4,39 @@
     <meta charset="utf-8">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+        var sessionString = sessionStorage.getItem("array1");
+        var array = JSON.parse(sessionString);
         function changeMethod() {
             var method = document.getElementById("mySelect").selectedIndex;
             if (method == 0) {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i].random == 1) {
+                        array[i].status = "vampire";
+                    }
+                    else {
+                        array[i].status = "human";
+                    }
+                    
+                }
                 window.alert("Random Guess Selected");
             }
             else if (method == 1) {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i].garlic + array[i].shadow + array[i].complexion >= 6) {
+                        array[i].status = "vampire";
+                    }
+                    else {
+                        array[i].status = "human";
+                    }
+                }
                 window.alert("Threshold Based Method Selected");
+                
             }
             else {
                 window.alert("error");
             }
-            
+            console.log(array);
+            sessionStorage.setItem('array1', JSON.stringify(array));
             sessionStorage.setItem('method1', JSON.stringify(method));
         }
         function reset() {
@@ -109,12 +130,14 @@
                 </select>
                 <button type="button" onclick="changeMethod()">Submit Change</button>
 
-              
-                <br></br>
-                <div id="table" align="center"></div>
-                <br />
+                <h2>Current class</h2>
+                
 
                 
+                <div id="table" align="center"></div>
+                <br>
+
+
                 <script>
                     var sessionString = sessionStorage.getItem("array1");
                     var array = JSON.parse(sessionString);
@@ -126,7 +149,7 @@
                     htmlTable("#table", array, labels);
                     function htmlTable(selector, data, columns) {
                         var sel = document.querySelector(selector);
-                        
+
 
                         if ((!columns) || columns.length == 0) {
                             columns = Object.keys(data[0]);
@@ -167,8 +190,8 @@
                         };
                     };
                 </script>
-                    <button class="btn btn-primary" onclick="reset()">Reset List</button>
-                </div>
+                <button class="btn btn-primary" onclick="reset()">Reset List</button>
+            </div>
 
             </div>
             </div>
