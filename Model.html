@@ -35,7 +35,7 @@
         }
         var array = [];
         var sessionString = sessionStorage.getItem("array1");
-        if (sessionString != null) {
+        if (sessionString != "null") {
             array = JSON.parse(sessionString);
             console.log(array);
         }
