@@ -1,0 +1,176 @@
+<html>
+<head>
+    <title>Vampire</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        function changeMethod() {
+            var method = document.getElementById("mySelect").selectedIndex;
+            if (method == 0) {
+                window.alert("Random Guess Selected");
+            }
+            else if (method == 1) {
+                window.alert("Threshold Based Method Selected");
+            }
+            else {
+                window.alert("error");
+            }
+            
+            sessionStorage.setItem('method1', JSON.stringify(method));
+        }
+        function reset() {
+            var array = [];
+            sessionStorage.setItem('array1', JSON.stringify(array));
+            console.log(array);
+            window.alert("Reset. Please Reload Page")
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #800000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #111;
+            position: fixed;
+            height:  4%;
+            overflow: hidden;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            float: left;
+            text-align: center;
+            font-size: 17px;
+        }
+
+            li a.active {
+                background-color: #333;
+                color: white;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+            }
+
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <a href="View.html">Home</a>
+
+        </li>
+        <li>
+            <a href="Model.html">Model</a>
+        </li>
+        <li>
+            <a class="active" href="Controller.html">Settings</a>
+        </li>
+    </ul>
+    <div style="padding:25px;">
+        <h2>Controller</h2>
+        <p> <img style="width: 500px; height: 225px;" src="batman.jpg"><br></p>
+
+        <div class="container">
+            <h2>Pick a Method</h2>
+            <!--Example 25-->
+            <div class="form-group">
+                <label for="mySelect">Select Model Logic:</label>
+                <select class="form-control" id="mySelect">
+                    <option nodeValue="Random Guess">Random Guess</option>
+                    <option value='2'>Threshold Based Method</option>
+                </select>
+                <button type="button" onclick="changeMethod()">Submit Change</button>
+
+              
+                <br></br>
+                <div id="table" align="center"></div>
+                <br />
+
+                
+                <script>
+                    var sessionString = sessionStorage.getItem("array1");
+                    var array = JSON.parse(sessionString);
+                    sessionStorage.setItem('array1', JSON.stringify(array));
+                    console.log(array);
+
+                    var labels = ['firstName', 'lastName', 'status'];
+
+                    htmlTable("#table", array, labels);
+                    function htmlTable(selector, data, columns) {
+                        var sel = document.querySelector(selector);
+                        
+
+                        if ((!columns) || columns.length == 0) {
+                            columns = Object.keys(data[0]);
+                        }
+
+                        var tbe = document.createElement('table');
+                        var thead = document.createElement('thead');
+                        tbe.appendChild(thead);
+
+                        var tre = document.createElement('tr');
+                        for (var i = 0; i < columns.length; i++) {
+                            var the = document.createElement('th');
+                            the.textContent = columns[i];
+                            tre.appendChild(the);
+                        }
+                        thead.appendChild(tre);
+
+                        var tbody = document.createElement('tbody');
+                        tbe.appendChild(tbody);
+                        for (var j = 0; j < data.length; j++) {
+                            var tre = document.createElement('tr');
+                            for (var i = 0; i < columns.length; i++) {
+                                var the = document.createElement('td');
+                                the.textContent = data[j][columns[i]];
+                                tre.appendChild(the);
+                            }
+                            tbody.appendChild(tre);
+                        };
+                        emptyDOMChildren(sel);
+                        sel.appendChild(tbe);
+                    };
+
+                    //deletes all children of element if it is not empty
+                    function emptyDOMChildren(container) {
+                        var len = container.childNodes.length;
+                        while (len--) {
+                            container.removeChild(container.lastChild);
+                        };
+                    };
+                </script>
+                    <button class="btn btn-primary" onclick="reset()">Reset List</button>
+                </div>
+
+            </div>
+            </div>
+</body>
+</html>

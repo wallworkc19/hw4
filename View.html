@@ -1,0 +1,173 @@
+<html>
+<head>
+    <title>Vampire</title>
+    <meta charset="utf-8">
+
+    <script>
+
+    </script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #800000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #111;
+            position: fixed;
+            height: 4%;
+            overflow: hidden;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            float: left;
+            text-align: center;
+            font-size: 17px;
+        }
+
+            li a.active {
+                background-color: #333;
+                color: white;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+            }
+    </style>
+    <!--Load the Google Chart API-->
+    <!-- If you want to use Google Chart, you need to import this library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var sessionString = sessionStorage.getItem("array1");
+        var array = JSON.parse(sessionString);
+        sessionStorage.setItem('array1', JSON.stringify(array));
+        console.log(array);
+        // Load the Visualization API and the corechart package.
+        // current means latest official release of Google Charts to be loaded
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+        
+        var chart;
+        var data;
+        var options;
+        var num_human = 0;
+        var num_vampire = 0;
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].status == "vampire") {
+                num_human = num_human + 1;
+            }
+            else {
+                num_vampire = num_vampire + 1;
+            }
+        }
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+            // Create the data table.
+            data = new google.visualization.DataTable();
+            data.addColumn('string', 'Element');
+            data.addColumn('number', 'Number');
+            data.addRows([
+                ['Human', num_human],
+                ['Vampire', num_vampire]
+            ]);
+
+            // Set chart options
+            options = {
+                'title': 'How many vampires in the class?',
+                'width': 400,
+                'height': 300
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+
+    </script>
+</head>
+<body>
+    <ul>
+        <li>
+            <a class="active" href="View.html">Home</a>
+
+        </li>
+        <li>
+            <a href ="Model.html">Model</a>
+        </li>
+        <li>
+            <a href ="Controller.html">Settings</a>
+        </li>
+    </ul>
+    
+    <div style="padding:25px;">
+        <h2>Is my classmate a vampire?</h2>
+
+        <p id="demo">Today is Thursday</p>
+
+        <script>
+            var day;
+            // The getDay() method returns the weekday as a number between 0 and 6.
+            switch (new Date().getDay()) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+            }
+            document.getElementById("demo").innerHTML = "Today is " + day;
+        </script>
+
+
+        <p> <img style="width: 225px; height: 225px;" src="vampire.jpg"><br></p>
+        
+
+        <p>
+            Have you ever felt that sinking sensation of someone lying about who they are? Vampires are living
+            among us, trying to take our precious blood. This website might save your life. You will be able
+            to use this website to identify if one of your so-called classmates is a vampire. All you must do is
+            just input the criteria that you think your classmate has and this website will produce the results of
+            whether your classmate is a vampire or not. Try this website out before it is too late, time is ticking.
+        </p>
+        <div>
+            <p>Current vampire percentage pie graph:</p>
+            <!--Div that will hold the pie chart-->
+            <div align="center" style="padding:25px;" id="chart_div"></div>
+            
+        </div>
+    </div>
+
+  </body>
+</html> 
+

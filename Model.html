@@ -1,0 +1,213 @@
+<html>
+<head>
+    <title>Vampire</title>
+    <meta charset="utf-8">
+
+    <script>
+        function submit() {
+            var sessionString = sessionStorage.getItem("method1");
+            var method = JSON.parse(sessionString);
+            console.log(method)
+            if (method == 0) {
+                rand();
+            }
+            else {
+                is_vampire_2();
+            }
+        }
+        function is_vampire() {
+            if (document.getElementById("garlic_id").checked) {
+                var garlic = 3;
+            }
+            else {
+                var garlic = 0;
+            }
+            if (document.getElementById("shadow_id").checked) {
+                var shadow = 4;
+            }
+            else {
+                var shadow = 0;
+            }
+            if (document.getElementById("complexion_id").checked) {
+                var complexion = 3;
+            }
+            else {
+                var complexion = 0;
+            }
+            // conditional expression
+            if (garlic + shadow + complexion >= 6) {
+                var status = "vampire";
+            }
+            else {
+                var status = "human";
+            }
+            window.alert(status);
+        }
+        var array = [];
+        var sessionString = sessionStorage.getItem("array1");
+        if (sessionString != null) {
+            array = JSON.parse(sessionString);
+            console.log(array);
+        }
+        
+        function is_vampire_2() {
+            if (document.getElementById("garlic_id").checked) {
+                var garlic = 3;
+            }
+            else {
+                var garlic = 0;
+            }
+            if (document.getElementById("shadow_id").checked) {
+                var shadow = 4;
+            }
+            else {
+                var shadow = 0;
+            }
+            if (document.getElementById("complexion_id").checked) {
+                var complexion = 3;
+            }
+            else {
+                var complexion = 0;
+            }
+            if (garlic+shadow+complexion >= 6) {
+                var s = "vampire";
+            }
+            else {
+                var s = "human";
+            }
+            console.log(s);
+            var f = document.getElementById("Fname_id").value;
+            var l = document.getElementById("Lname_id").value;
+            var person = { firstName: f, lastName: l, status: s };
+            array.push(person);
+            console.log(s);
+            sessionStorage.setItem('array1', JSON.stringify(array));
+            console.log(array);
+            window.alert("submitted");
+        }
+        function rand() {
+            var r = Math.floor((Math.random() * 2)+1);
+            console.log(r);
+            if (r == 1) {
+                var s = "vampire";
+            }
+            else {
+                var s = "human";
+            }
+            var f = document.getElementById("Fname_id").value;
+            var l = document.getElementById("Lname_id").value;
+            var person = { "firstName": f, "lastName": l, "status": s };
+            array.push(person);
+            sessionStorage.setItem('array1', JSON.stringify(array));
+            console.log(array);
+            window.alert("random submitted");
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #800000;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #111;
+            position: fixed;
+            height: 4%;
+            overflow: hidden;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            float: left;
+            text-align: center;
+            font-size: 17px;
+        }
+
+            li a.active {
+                background-color: #333;
+                color: white;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <a href="View.html">Home</a>
+
+        </li>
+        <li>
+            <a class="active" href="Model.html">Model</a>
+        </li>
+        <li>
+            <a href="Controller.html">Settings</a>
+        </li>
+    </ul>
+    <div style="padding:25px;">
+        <h2>Is my classmate a vampire?</h2>
+
+        <p id="demo">Today is Thursday</p>
+        <p> <img style="width: 500px; height: 225px;" src="bat.jpg"><br></p>
+        <script>
+            var day;
+            // The getDay() method returns the weekday as a number between 0 and 6.
+            switch (new Date().getDay()) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+            }
+            document.getElementById("demo").innerHTML = "Today is " + day;
+        </script>
+
+        <p id="demo"></p>
+
+        <!-- group activity 4 -->
+        <form action="/action_page.php" method="get">
+            <label for="Fname_id">First name: </label>
+            <input type="text" id="Fname_id"><br><br>
+            <label for="Lname_id">Last name: </label>
+            <input type="text" id="Lname_id"><br><br>
+            <label for="garlic">Do they eat garlic?</label>
+            <input type="checkbox" id="garlic_id" name="garlic_id"><br><br>
+            <label for="shadow">Do they have a shadow?</label>
+            <input type="checkbox" id="shadow_id" name="shadow_id"><br><br>
+            <label for="complexion">Is they white?</label>
+            <input type="checkbox" id="complexion_id" name="complexion_id"><br><br>
+
+        </form>
+        <button type="button" onclick="is_vampire()">Check Student</button>
+        <button type="button" onclick="submit()">Submit</button>
+        <button type="button" onclick="rand()">Let us guess</button>
+    </div>
+</body>
+</html>
