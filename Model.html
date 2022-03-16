@@ -4,17 +4,7 @@
     <meta charset="utf-8">
 
     <script>
-        function submit() {
-            var sessionString = sessionStorage.getItem("method1");
-            var method = JSON.parse(sessionString);
-            console.log(method)
-            if (method == 0) {
-                rand();
-            }
-            else {
-                is_vampire_2();
-            }
-        }
+        
         function is_vampire() {
             if (document.getElementById("garlic_id").checked) {
                 var garlic = 3;
@@ -75,33 +65,18 @@
             else {
                 var s = "human";
             }
+            var r = Math.floor((Math.random() * 2) + 1);
             console.log(s);
             var f = document.getElementById("Fname_id").value;
             var l = document.getElementById("Lname_id").value;
-            var person = { firstName: f, lastName: l, status: s };
+            var person = { firstName: f, lastName: l, garlic: garlic, shadow: shadow, complexion: complexion, random: r, status: s };
             array.push(person);
             console.log(s);
             sessionStorage.setItem('array1', JSON.stringify(array));
             console.log(array);
             window.alert("submitted");
         }
-        function rand() {
-            var r = Math.floor((Math.random() * 2)+1);
-            console.log(r);
-            if (r == 1) {
-                var s = "vampire";
-            }
-            else {
-                var s = "human";
-            }
-            var f = document.getElementById("Fname_id").value;
-            var l = document.getElementById("Lname_id").value;
-            var person = { "firstName": f, "lastName": l, "status": s };
-            array.push(person);
-            sessionStorage.setItem('array1', JSON.stringify(array));
-            console.log(array);
-            window.alert("random submitted");
-        }
+
     </script>
     <style>
         body {
@@ -201,13 +176,13 @@
             <input type="checkbox" id="garlic_id" name="garlic_id"><br><br>
             <label for="shadow">Do they have a shadow?</label>
             <input type="checkbox" id="shadow_id" name="shadow_id"><br><br>
-            <label for="complexion">Is they white?</label>
+            <label for="complexion">Are they white?</label>
             <input type="checkbox" id="complexion_id" name="complexion_id"><br><br>
 
         </form>
         <button type="button" onclick="is_vampire()">Check Student</button>
-        <button type="button" onclick="submit()">Submit</button>
-        <button type="button" onclick="rand()">Let us guess</button>
+        <button type="button" onclick="is_vampire_2()">Submit</button>
+
     </div>
 </body>
 </html>
